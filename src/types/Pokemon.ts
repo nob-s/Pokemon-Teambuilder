@@ -19,6 +19,6 @@ export class Pokemon {
     }
 
     private static emptyPokemonWithName(name: string): Pokemon {
-        return this.constructor(name, 0, [], []);
+        return new Pokemon(name, 0, [], []);
     }
 }
