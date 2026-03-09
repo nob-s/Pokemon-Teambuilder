@@ -6,11 +6,11 @@ export class Ability {
   effect: string;
   shortEffect: string;
 
-  constructor(name: string, isHidden: boolean, effect: string, shortEffect: string) {
+  constructor(name: string, isHidden: boolean, shortEffect: string, effect: string) {
     this.name = name;
     this.isHidden = isHidden;
-    this.effect = effect;
     this.shortEffect = shortEffect;
+    this.effect = effect;
   }
 
   static getErrorAbility(name: string, isHidden: boolean): Ability {

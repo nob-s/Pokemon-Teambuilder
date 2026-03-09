@@ -1,10 +1,16 @@
 import { Pokemon } from "../types/Pokemon";
 import { Ability } from "../types/Ability.ts";
+import { Format } from "./Format.ts";
 
 type PokemonApiResponse = {
     name: string,
     id: number,
-    types: string[],
+    types: {
+        type: {
+            name: string,
+            url: string,
+        }
+    }[],
     abilities: {
         ability: {
             name: string,
@@ -12,6 +18,9 @@ type PokemonApiResponse = {
         },
         is_hidden: boolean,
     }[],
+    sprites: {
+        front_default: string,
+    },
 };
 
 type AbilityDescApiResponse = {
@@ -31,23 +40,29 @@ export class PokemonParser {
 
     static async fetchAndCreatePokemon(urlName: string): Promise<Pokemon> {
         const pokeUrl = this.POKEMON_ENDPOINT + urlName.toLowerCase();
-        const pokeJson = await this.fetchAndJsonOrNull(pokeUrl);
+        const pokeJson: PokemonApiResponse = await this.fetchAndJsonOrNull(pokeUrl);
         if (pokeJson == null) {
             return Pokemon.ERROR_POKEMON;
         }
-        const name = pokeJson.name;
-        const id = pokeJson.id;
-        const types = pokeJson.types;
-        const abilities = await this.getAbilities(pokeJson);
 
-        return new Pokemon(name, id, types, abilities);
+        const name = Format.capitalizeFirst(pokeJson.name);
+        const id = pokeJson.id;
+        const types = this.getTypes(pokeJson);
+        const abilities = await this.getAbilities(pokeJson);
+        const spriteUrl = pokeJson.sprites.front_default;
+
+        return new Pokemon(name, id, types, abilities, spriteUrl);
+    }
+
+    private static getTypes(pokeJson: PokemonApiResponse): string[] {
+        return pokeJson.types.map(type => Format.capitalizeFirst(type.type.name));
     }
 
     private static async getAbilities(pokeJson: PokemonApiResponse): Promise<Ability[]> {
         const abilities: Ability[] = [];
 
         for (const ability of pokeJson.abilities) {
-            const name = ability.ability.name;
+            const name = Format.capitalizeFirst(ability.ability.name);
             const isHidden = ability.is_hidden;
             let effect = "";
             let shortEffect = "";
@@ -60,11 +75,11 @@ export class PokemonParser {
 
             for (const desc of abilityDescJson.effect_entries) {
                 if (desc.language.name == this.USER_LANGUAGE) {
-                    effect = desc.effect;
-                    shortEffect = desc.short_effect;
+                    shortEffect = Format.capitalizeFirst(desc.short_effect);
+                    effect = Format.capitalizeFirst(desc.effect);
                 }
             }
-            abilities.push(new Ability(name, isHidden, effect, shortEffect));
+            abilities.push(new Ability(name, isHidden, shortEffect, effect));
         }
         return abilities;
     }
