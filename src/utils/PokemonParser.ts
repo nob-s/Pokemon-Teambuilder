@@ -61,27 +61,33 @@ export class PokemonParser {
     private static async getAbilities(pokeJson: PokemonApiResponse): Promise<Ability[]> {
         const abilities: Ability[] = [];
 
-        for (const ability of pokeJson.abilities) {
-            const name = Format.capitalizeFirst(ability.ability.name);
-            const isHidden = ability.is_hidden;
-            let effect = "";
-            let shortEffect = "";
-            const abilityDescJson: AbilityDescApiResponse = await this.fetchAndJsonOrNull(ability.ability.url);
-
-            if (abilityDescJson == null) {
-                abilities.push(Ability.getErrorAbility(name, isHidden));
-                continue;
-            }
-
-            for (const desc of abilityDescJson.effect_entries) {
-                if (desc.language.name == this.USER_LANGUAGE) {
-                    shortEffect = Format.capitalizeFirst(desc.short_effect);
-                    effect = Format.capitalizeFirst(desc.effect);
-                }
-            }
-            abilities.push(new Ability(name, isHidden, shortEffect, effect));
+        for (let i = 0; i < pokeJson.abilities.length; i++) {
+            abilities.push(await this.getAbility(pokeJson, i));
         }
         return abilities;
+    }
+
+    private static async getAbility(pokeJson: PokemonApiResponse, idx: number): Promise<Ability> {
+        const abilityJson = pokeJson.abilities[idx];
+
+        const name = Format.capitalizeFirst(abilityJson.ability.name);
+        const isHidden = abilityJson.is_hidden;
+        let effect = "";
+        let shortEffect = "";
+        const abilityDescJson: AbilityDescApiResponse = await this.fetchAndJsonOrNull(abilityJson.ability.url);
+
+        if (abilityDescJson == null) {
+            return Ability.getErrorAbility(name, isHidden);
+        }
+
+        for (const desc of abilityDescJson.effect_entries) {
+            if (desc.language.name == this.USER_LANGUAGE) {
+                shortEffect = Format.capitalizeFirst(desc.short_effect);
+                effect = Format.capitalizeFirst(desc.effect);
+                break;
+            }
+        }
+        return new Ability(name, isHidden, shortEffect, effect)
     }
 
     private static async fetchAndJsonOrNull(url: string) {
