@@ -1,6 +1,7 @@
 import { Pokemon } from "../types/Pokemon";
 import { Ability } from "../types/Ability.ts";
 import { Format } from "./Format.ts";
+import { Api } from "./Api.ts";
 
 type PokemonApiResponse = {
     name: string,
@@ -40,7 +41,7 @@ export class PokemonParser {
 
     static async fetchAndCreatePokemon(urlName: string): Promise<Pokemon> {
         const pokeUrl = this.POKEMON_ENDPOINT + urlName.toLowerCase();
-        const pokeJson: PokemonApiResponse = await this.fetchAndJsonOrNull(pokeUrl);
+        const pokeJson: PokemonApiResponse = await Api.fetchAndJsonOrNull(pokeUrl);
         if (pokeJson == null) {
             return Pokemon.ERROR_POKEMON;
         }
@@ -74,7 +75,7 @@ export class PokemonParser {
         const isHidden = abilityJson.is_hidden;
         let effect = "";
         let shortEffect = "";
-        const abilityDescJson: AbilityDescApiResponse = await this.fetchAndJsonOrNull(abilityJson.ability.url);
+        const abilityDescJson: AbilityDescApiResponse = await Api.fetchAndJsonOrNull(abilityJson.ability.url);
 
         if (abilityDescJson == null) {
             return Ability.getErrorAbility(name, isHidden);
@@ -88,18 +89,5 @@ export class PokemonParser {
             }
         }
         return new Ability(name, isHidden, shortEffect, effect)
-    }
-
-    private static async fetchAndJsonOrNull(url: string) {
-        try {
-            const res = await fetch(url);
-            if (!res.ok) {
-                return null;
-            }
-            return await res.json()
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch(err) {
-            return null;
-        }
     }
 }
