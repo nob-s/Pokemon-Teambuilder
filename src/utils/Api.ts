@@ -1,5 +1,5 @@
 export class Api {
-  public static async fetchAndJsonOrNull(url: string) {
+  static async fetchAndJsonOrNull(url: string) {
     try {
       const res = await fetch(url);
       if (!res.ok) {

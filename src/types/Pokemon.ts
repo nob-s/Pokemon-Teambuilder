@@ -11,18 +11,20 @@ export class Pokemon {
     name: string;
     id: number;
     types: string[];
+    stats: Record<string, number>;
     abilities: Ability[];
     spriteUrl: string;
 
-    constructor(name: string, id: number, types: string[], abilities: Ability[], spriteUrl: string) {
+    constructor(name: string, id: number, types: string[], stats: Record<string, number>, abilities: Ability[], spriteUrl: string) {
         this.name = name;
         this.id = id;
         this.abilities = abilities;
+        this.stats = stats;
         this.types = types;
         this.spriteUrl = spriteUrl;
     }
 
     private static emptyPokemonWithName(name: string): Pokemon {
-        return new Pokemon(name, -1, [], [], "");
+        return new Pokemon(name, -1, [], {}, [], "");
     }
 }

@@ -3,6 +3,7 @@ import { PokemonCard } from "../modules/PokemonCard.tsx";
 import { PokemonParser } from "../utils/PokemonParser.ts";
 import { Pokemon } from "../types/Pokemon.ts";
 import { useState } from "react";
+import { PokemonDisplay } from "../modules/PokemonDisplay.tsx";
 
 export function Home() {
   const [clickMessage, setClickMessage] = useState<{
@@ -52,10 +53,7 @@ export function Home() {
         {/* Search bar */}
         <div className="w-1/2">
           <SearchBar onSearch={handleSearch}/>
-          <PokemonCard
-            pokemon={displayPokemon}
-            onChangePokemon={(e) => updateTeamPokemonAt(0, e)}
-          />
+          <PokemonDisplay pokemon={displayPokemon}/>
         </div>
 
         {/* Pokemon team */}

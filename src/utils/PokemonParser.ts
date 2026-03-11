@@ -12,6 +12,12 @@ type PokemonApiResponse = {
             url: string,
         }
     }[],
+    stats: {
+        base_stat: number,
+        stat: {
+            name: string,
+        }
+    }[],
     abilities: {
         ability: {
             name: string,
@@ -49,14 +55,24 @@ export class PokemonParser {
         const name = Format.capitalizeFirst(pokeJson.name);
         const id = pokeJson.id;
         const types = this.getTypes(pokeJson);
+        const stats = this.getStats(pokeJson);
         const abilities = await this.getAbilities(pokeJson);
         const spriteUrl = pokeJson.sprites.front_default;
 
-        return new Pokemon(name, id, types, abilities, spriteUrl);
+        return new Pokemon(name, id, types, stats, abilities, spriteUrl);
     }
 
     private static getTypes(pokeJson: PokemonApiResponse): string[] {
         return pokeJson.types.map(type => Format.capitalizeFirst(type.type.name));
+    }
+
+    private static getStats(pokeJson: PokemonApiResponse): Record<string, number> {
+        const stats: Record<string, number> = {};
+        for (let i = 0; i < pokeJson.stats.length; i++) {
+            const statJson = pokeJson.stats[i];
+            stats[Format.capitalizeEachFirst(statJson.stat.name.replace('-', ' '))] = statJson.base_stat;
+        }
+        return stats;
     }
 
     private static async getAbilities(pokeJson: PokemonApiResponse): Promise<Ability[]> {
