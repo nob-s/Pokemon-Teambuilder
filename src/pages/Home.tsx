@@ -1,9 +1,9 @@
 import { SearchBar } from "../modules/SearchBar.tsx";
-import { PokemonCard } from "../modules/PokemonCard.tsx";
+import { PokemonCard } from "../modules/pokemonModules/PokemonCard.tsx";
 import { PokemonParser } from "../utils/PokemonParser.ts";
 import { Pokemon } from "../types/Pokemon.ts";
 import { useState } from "react";
-import { PokemonDisplay } from "../modules/PokemonDisplay.tsx";
+import { PokemonDisplay } from "../modules/pokemonModules/PokemonDisplay.tsx";
 
 export function Home() {
   const [clickMessage, setClickMessage] = useState<{

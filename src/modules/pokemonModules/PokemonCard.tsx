@@ -1,5 +1,7 @@
 import React from "react";
-import { Pokemon } from "../types/Pokemon";
+import { Pokemon } from "../../types/Pokemon.ts";
+import { PokemonAbilities } from "./PokemonAbilities.tsx";
+import { PokemonStats } from "./PokemonStats.tsx";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -32,29 +34,8 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onChangePokem
             alt={`${pokemon.name} sprite`}
             className="relative flex object-contain z-10"
           />
-          <div>
-            <p className="font-bold">Base Stats</p>
-            <ul className="list-none">
-              {Object.entries(pokemon.stats).map((entry) => (
-                <li key={entry[0]} className="mb-1">
-                  <span className="font-medium">{entry[0]}: </span>
-                  {entry[1]}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mt-2">Abilities</h3>
-            <ul className="list-none">
-              {pokemon.abilities.map((ability) => (
-                <li key={ability.name} className="mb-1">
-                  <span>{ability.name}</span>
-                  {ability.isHidden ? " (Hidden)" : ""}
-                  <p>{ability.shortEffect}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <PokemonStats stats = { pokemon.stats }/>
+          <PokemonAbilities abilities={ pokemon.abilities }/>
         </div>
       )}
     </div>
