@@ -20,7 +20,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onChangePokem
             Add Displayed Pokemon
           </button>
         </div>
-      ) : pokemon !== Pokemon.SEARCH_PROMPT_POKEMON ? (
+      ) : pokemon !== Pokemon.SEARCH_PROMPT_POKEMON && pokemon !== Pokemon.ERROR_POKEMON ? (
         <>
           <p>ID: {pokemon.id}</p>
           <p>Type: {pokemon.types.join(', ')}</p>
