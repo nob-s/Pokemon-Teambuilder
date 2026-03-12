@@ -6,15 +6,22 @@ import { PokemonStats } from "./PokemonStats.tsx";
 interface PokemonCardProps {
   pokemon: Pokemon;
   onChangePokemon: (e: React.MouseEvent) => void;
+  onDeletePokemon: () => void;
 }
 
-export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onChangePokemon }) => {
+export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onChangePokemon, onDeletePokemon }) => {
   return (
     <div className="border border-gray-400 rounded p-4 w-full h-full flex flex-col overflow-y-auto">
-      <div className="flex flex-col">
+      <div className="flex">
         <h2 className="font-bold text-center text-3xl">
           {pokemon.name}
         </h2>
+        <button
+          className="ml-auto bg-red-700 text-white font-bold px-2 rounded shadow hover:bg-red-800 transition"
+          onClick={() => onDeletePokemon()}
+        >
+          Del
+        </button>
       </div>
 
       {pokemon === Pokemon.EMPTY_POKEMON ? (

@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 
 // Cache initialization
+// @ts-ignore
 import { PokeCache } from "./utils/PokeCache.ts";
 
 createRoot(document.getElementById('root')!).render(

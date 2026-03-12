@@ -47,10 +47,17 @@ export function Home() {
         return;
       }
     }
-    setPokemonTeam(pokemonTeam.map((p, i) => i === idx ? displayPokemon : p))
+    setPokemonTeam(pokemonTeam.map(
+      (p, i) => i === idx ? displayPokemon : p))
   }
 
-
+  const deleteTeamPokemonAt = (idx: number) => {
+    if (pokemonTeam[idx] === Pokemon.EMPTY_POKEMON) {
+      return;
+    }
+    setPokemonTeam(pokemonTeam.map(
+      (p, i) => i === idx ? Pokemon.EMPTY_POKEMON : p))
+  }
 
   return (
     <>
@@ -72,6 +79,7 @@ export function Home() {
               key={idx}
               pokemon={teamPokemon}
               onChangePokemon={(e) => updateTeamPokemonAt(idx, e)}
+              onDeletePokemon={() => deleteTeamPokemonAt(idx)}
             />
           ))}
         </div>

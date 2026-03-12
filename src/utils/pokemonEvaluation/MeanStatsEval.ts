@@ -46,11 +46,11 @@ export class MeanStatsEval {
     }
 
     const greatStats = Object.entries(statEvals)
-      .filter(([key, value]) =>
+      .filter(([, value]) =>
         value === this.EVAL_GOOD || value === this.EVAL_EXCELLENT)
       .map(([key]) => key);
     const averageStats = Object.entries(statEvals)
-      .filter(([key, value]) =>
+      .filter(([, value]) =>
         value === this.EVAL_AVERAGE || value === this.EVAL_POOR)
       .map(([key]) => key);
 

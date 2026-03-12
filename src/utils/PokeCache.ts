@@ -10,6 +10,7 @@ export class PokeCache {
   private static POKEMON_ENDPOINT_URL = (limit: number) =>
     `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
 
+  // @ts-ignore
   private static initializer = (async () => {
     console.log("Cache is loading");
     const data = await Api.fetchAndJsonOrNull(PokeCache.POKEMON_ENDPOINT_URL(10000));
