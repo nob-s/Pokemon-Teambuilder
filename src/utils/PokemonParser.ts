@@ -5,7 +5,9 @@ import { Api } from "./Api.ts";
 
 type PokemonApiResponse = {
     name: string,
-    id: number,
+    game_indices: {
+        game_index: number,
+    }[],
     types: {
         type: {
             name: string,
@@ -30,8 +32,6 @@ type PokemonApiResponse = {
     },
 };
 
-
-
 type AbilityDescApiResponse = {
     effect_entries: {
         effect: string,
@@ -55,7 +55,7 @@ export class PokemonParser {
         }
 
         const name = Format.capitalizeFirst(pokeJson.name);
-        const id = pokeJson.id;
+        const id = pokeJson.game_indices[0].game_index;
         const types = this.getTypes(pokeJson);
         const baseStats = this.getBaseStats(pokeJson);
         const abilities = await this.getAbilities(pokeJson);

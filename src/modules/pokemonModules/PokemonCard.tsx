@@ -11,7 +11,12 @@ interface PokemonCardProps {
 export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onChangePokemon }) => {
   return (
     <div className="border border-gray-400 rounded p-4 w-full h-full flex flex-col overflow-y-auto">
-      <h2 className="font-bold text-center text-2xl">{pokemon.name}</h2>
+      <div className="flex flex-col">
+        <h2 className="font-bold text-center text-3xl">
+          {pokemon.name}
+        </h2>
+      </div>
+
       {pokemon === Pokemon.EMPTY_POKEMON ? (
         <div className="flex flex-1 justify-center items-center">
           <button
@@ -24,9 +29,8 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onChangePokem
       ) : pokemon === Pokemon.ERROR_POKEMON
         ? null
         : (
-        <div className="text-xs p-4">
+        <div className="text-s p-4">
           <div className="flex flex-col">
-            <p>ID: {pokemon.id}</p>
             <p>Type: {pokemon.types.join(', ')}</p>
           </div>
           <img

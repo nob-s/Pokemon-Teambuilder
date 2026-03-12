@@ -1,6 +1,6 @@
 import React from "react";
 import type { Pokemon } from "../types/Pokemon.ts";
-import { PokeEval } from "../utils/PokeEval.ts";
+import { PokeEval } from "../utils/pokemonEvaluation/PokeEval.ts";
 
 interface TeamSummaryBoxProps {
   pokemonTeam: Pokemon[],
@@ -8,7 +8,7 @@ interface TeamSummaryBoxProps {
 
 export const TeamSummaryBox: React.FC<TeamSummaryBoxProps> = ({ pokemonTeam }) => {
   return (
-    <div className="border border-gray-400 rounded p-8">
+    <div className="border accent-purple-800 border-wi rounded p-8">
       <p className="whitespace-pre-line">{PokeEval.evalStats(pokemonTeam)}</p>
     </div>
   );

@@ -11,7 +11,7 @@ interface PokemonDisplayProps {
 export const PokemonDisplay: React.FC<PokemonDisplayProps> = ({ pokemon }) => {
   return (
     <div className="border border-gray-400 rounded p-8 w-full h-full flex flex-col overflow-y-auto">
-      <h2 className="font-bold text-center text-2xl">{pokemon.name}</h2>
+      <h2 className="font-bold text-center text-4xl">{pokemon.name}</h2>
       {/* Display only if valid pokemon */}
       {pokemon === Pokemon.SEARCH_PROMPT_POKEMON || pokemon === Pokemon.ERROR_POKEMON
         ? null

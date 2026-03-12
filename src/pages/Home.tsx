@@ -38,6 +38,9 @@ export function Home() {
   }
 
   const updateTeamPokemonAt = (idx: number, e: React.MouseEvent) =>{
+    if(displayPokemon === Pokemon.SEARCH_PROMPT_POKEMON || displayPokemon === Pokemon.ERROR_POKEMON){
+      return;
+    }
     for (let i = 0; i < pokemonTeam.length; i++) {
       if (pokemonTeam[i].name === displayPokemon.name) {
         handleAlreadyInTeam(e);
@@ -51,14 +54,14 @@ export function Home() {
 
   return (
     <>
-      <div className="flex h-screen p-4 gap-4">
+      <div className="flex h-screen p-4 gap-4 font-pokemon text-2xl">
         {/* Search bar */}
         <div className="flex flex-col w-1/2 h-full">
           <div className="h-3/4">
             <SearchBar onSearch={handleSearch}/>
             <PokemonDisplay pokemon={displayPokemon}/>
           </div>
-          <div className="mt-10 h-1/4">
+          <div className="mt-14 h-1/4">
             <TeamSummaryBox pokemonTeam={ pokemonTeam }/>
           </div>
         </div>

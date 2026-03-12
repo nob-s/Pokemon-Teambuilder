@@ -1,1 +1,8 @@
 @import "tailwindcss";
+@font-face {
+    font-family: Pokemon;
+    src: url('../public/fonts/pokemon-ds-font.ttf');
+}
+@theme{
+    --font-pokemon: Pokemon, "sans-serif";
+}
