@@ -7,7 +7,7 @@ interface PokemonStatsProps {
 export const PokemonStats: React.FC<PokemonStatsProps> = ({ stats }) => {
   return (
     <div>
-      <p className="font-bold">Base Stats</p>
+      <p className="font-bold">Stats</p>
       <ul className="list-none p-0">
         {Object.entries(stats).map((entry) => (
           <li key={entry[0]} className="mb-1">

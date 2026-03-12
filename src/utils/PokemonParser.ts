@@ -55,24 +55,24 @@ export class PokemonParser {
         const name = Format.capitalizeFirst(pokeJson.name);
         const id = pokeJson.id;
         const types = this.getTypes(pokeJson);
-        const stats = this.getStats(pokeJson);
+        const baseStats = this.getBaseStats(pokeJson);
         const abilities = await this.getAbilities(pokeJson);
         const spriteUrl = pokeJson.sprites.front_default;
 
-        return new Pokemon(name, id, types, stats, abilities, spriteUrl);
+        return new Pokemon(name, id, types, baseStats, abilities, spriteUrl);
     }
 
     private static getTypes(pokeJson: PokemonApiResponse): string[] {
         return pokeJson.types.map(type => Format.capitalizeFirst(type.type.name));
     }
 
-    private static getStats(pokeJson: PokemonApiResponse): Record<string, number> {
-        const stats: Record<string, number> = {};
+    private static getBaseStats(pokeJson: PokemonApiResponse): Record<string, number> {
+        const baseStats: Record<string, number> = {};
         for (let i = 0; i < pokeJson.stats.length; i++) {
             const statJson = pokeJson.stats[i];
-            stats[Format.capitalizeEachFirst(statJson.stat.name.replace('-', ' '))] = statJson.base_stat;
+            baseStats[Format.capitalizeEachFirst(statJson.stat.name.replace('-', ' '))] = statJson.base_stat;
         }
-        return stats;
+        return baseStats;
     }
 
     private static async getAbilities(pokeJson: PokemonApiResponse): Promise<Ability[]> {
