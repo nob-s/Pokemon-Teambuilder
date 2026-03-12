@@ -21,7 +21,11 @@ export const PokemonDisplay: React.FC<PokemonDisplayProps> = ({ pokemon }) => {
             <div className="flex flex-col gap-3">
               <p>ID: {pokemon.id}</p>
               <p>Type: {pokemon.types.join(', ')}</p>
-              <PokemonStats stats = { pokemon.stats }/>
+              <PokemonStats
+                baseStats={pokemon.baseStats}
+                stats = { pokemon.stats }
+                isShowingBase={ true }
+              />
             </div>
             <PokemonPokeballDisplay spriteUrl={ pokemon.spriteUrl } />
           </div>

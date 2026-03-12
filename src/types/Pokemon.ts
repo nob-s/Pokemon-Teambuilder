@@ -1,7 +1,8 @@
 import type { Ability } from "./Ability.ts";
 
 /**
- * Stats are assumed to be max IVs and 0 EVs, implementation might take too long.
+ * Representation of a Pokémon.
+ * Stats are assumed to be max IVs and 0 EVs
  */
 
 export class Pokemon {

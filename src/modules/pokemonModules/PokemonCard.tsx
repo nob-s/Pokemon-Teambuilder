@@ -34,7 +34,11 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon, onChangePokem
             alt={`${pokemon.name} sprite`}
             className="relative flex object-contain z-10"
           />
-          <PokemonStats stats = { pokemon.stats }/>
+          <PokemonStats
+            baseStats={pokemon.baseStats}
+            stats = { pokemon.stats }
+            isShowingBase={ true }
+          />
           <PokemonAbilities abilities={ pokemon.abilities }/>
         </div>
       )}

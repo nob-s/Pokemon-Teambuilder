@@ -30,6 +30,8 @@ type PokemonApiResponse = {
     },
 };
 
+
+
 type AbilityDescApiResponse = {
     effect_entries: {
         effect: string,

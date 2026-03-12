@@ -4,6 +4,8 @@ import { PokemonParser } from "../utils/PokemonParser.ts";
 import { Pokemon } from "../types/Pokemon.ts";
 import { useState } from "react";
 import { PokemonDisplay } from "../modules/pokemonModules/PokemonDisplay.tsx";
+import { AlreadyInTeamMessage } from "../modules/clickMessageModules/AlreadyInTeamMessage.tsx";
+import { TeamSummaryBox } from "../modules/TeamSummaryBox.tsx";
 
 export function Home() {
   const [clickMessage, setClickMessage] = useState<{
@@ -51,11 +53,15 @@ export function Home() {
     <>
       <div className="flex h-screen p-4 gap-4">
         {/* Search bar */}
-        <div className="w-1/2">
-          <SearchBar onSearch={handleSearch}/>
-          <PokemonDisplay pokemon={displayPokemon}/>
+        <div className="flex flex-col w-1/2 h-full">
+          <div className="h-3/4">
+            <SearchBar onSearch={handleSearch}/>
+            <PokemonDisplay pokemon={displayPokemon}/>
+          </div>
+          <div className="mt-10 h-1/4">
+            <TeamSummaryBox pokemonTeam={ pokemonTeam }/>
+          </div>
         </div>
-
         {/* Pokemon team */}
         <div className="w-1/2 grid grid-cols-3 grid-rows-2 gap-4">
           {pokemonTeam.map((teamPokemon, idx) => (
@@ -68,15 +74,7 @@ export function Home() {
         </div>
       </div>
       {clickMessage && (
-        <div
-          className="fixed text-white bg-black px-3 py-1 rounded pointer-events-none"
-          style={{
-            left: clickMessage.x,
-            top: clickMessage.y
-          }}
-        >
-          {clickMessage.text}
-        </div>
+        <AlreadyInTeamMessage clickMessage={clickMessage}/>
       )}
     </>
   );

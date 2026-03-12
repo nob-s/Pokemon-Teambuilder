@@ -18,4 +18,22 @@ export class Format {
     }
     return ans;
   }
+
+  static listToSentence(list: string[]): string {
+    if (list.length === 0) {
+      return "";
+    }
+    if (list.length === 1) {
+      return list[0];
+    }
+
+    let formatString = "";
+    for (let i = 0; i < list.length - 1; i++) {
+      if (i !== 0) {
+        formatString += ", ";
+      }
+      formatString += list[i];
+    }
+    return `${formatString} and ${list[list.length - 1]}`;
+  }
 }
