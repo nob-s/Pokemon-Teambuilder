@@ -8,7 +8,7 @@ interface TeamSummaryBoxProps {
 
 export const TeamSummaryBox: React.FC<TeamSummaryBoxProps> = ({ pokemonTeam }) => {
   return (
-    <div className="border accent-purple-800 border-wi rounded p-8">
+    <div className="w-full h-full overflow-y-auto border border-purple-700 rounded p-8">
       <p className="whitespace-pre-line">{PokeEval.evalStats(pokemonTeam)}</p>
     </div>
   );

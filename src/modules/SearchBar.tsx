@@ -28,7 +28,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({onSearch}) => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyPress}
-        className="border rounded w-full"
+        className="border rounded w-full pl-3"
       />
       {suggestions.length > 0 && (
         <ul className="absolute z-10 w-full border bg-white max-h-40 overflow-y-auto">

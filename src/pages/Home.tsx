@@ -63,12 +63,12 @@ export function Home() {
     <>
       <div className="flex h-screen p-4 gap-4 font-pokemon text-2xl">
         {/* Search bar */}
-        <div className="flex flex-col w-1/2 h-full">
-          <div className="h-3/4">
+        <div className="flex flex-col w-1/2 h-full space-y-12">
+          <div className="flex-3 flex-col">
             <SearchBar onSearch={handleSearch}/>
             <PokemonDisplay pokemon={displayPokemon}/>
           </div>
-          <div className="mt-14 h-1/4">
+          <div className="flex-1">
             <TeamSummaryBox pokemonTeam={ pokemonTeam }/>
           </div>
         </div>
