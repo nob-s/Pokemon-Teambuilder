@@ -57,6 +57,24 @@ export class PokemonParser {
     private static readonly USER_LANGUAGE = "en";
     private static readonly POKEMON_ENDPOINT = "https://pokeapi.co/api/v2/pokemon/";
 
+    static readonly statNameToEmoji: Record<string, string> = {
+        "Hp": "❤️",
+        "Attack": "⚔️",
+        "Defense": "🛡️",
+        "Special Attack": "🌀",
+        "Special Defense": "🌐",
+        "Speed": "༄༄ ",
+    }
+
+    static readonly statNameShort: Record<string, string> = {
+        "Hp": "Hp",
+        "Attack": "Atk",
+        "Defense": "Def",
+        "Special Attack": "Sp. Atk",
+        "Special Defense": "Sp. Def",
+        "Speed": "Spd",
+    };
+
     static parsePokemonCookie(p: PokemonCookieParsed) {
         return new Pokemon(p.name, p.id, p.types, p.baseStats, p.abilities, p.spriteUrl)
     }

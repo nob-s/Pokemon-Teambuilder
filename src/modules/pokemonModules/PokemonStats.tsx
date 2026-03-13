@@ -1,4 +1,5 @@
 import React from "react";
+import { PokemonParser } from "../../utils/PokemonParser.ts";
 
 interface PokemonStatsProps {
   baseStats: Record<string, number>,
@@ -7,14 +8,7 @@ interface PokemonStatsProps {
 }
 
 export const PokemonStats: React.FC<PokemonStatsProps> = ({ baseStats, stats, isShowingBase }) => {
-  const statNameToEmoji: Record<string, string> = {
-    "Hp": "❤️",
-    "Attack": "⚔️",
-    "Defense": "🛡️",
-    "Special Attack": "🌀",
-    "Special Defense": "🌐",
-    "Speed": "༄༄ ",
-  }
+
   return (
     <div>
       <p className="font-bold">Stats</p>
@@ -22,9 +16,9 @@ export const PokemonStats: React.FC<PokemonStatsProps> = ({ baseStats, stats, is
         {Object.entries(isShowingBase ? baseStats : stats).map((entry) => (
           <li key={entry[0]} className="mb-1 flex items-center gap-2">
             <span className="w-6 h-6 flex justify-center items-center text-lg">
-              {statNameToEmoji[entry[0]]}
+              {PokemonParser.statNameToEmoji[entry[0]]}
             </span>
-            <span className="font-medium">{entry[0]}:</span>
+            <span className="font-medium">{PokemonParser.statNameShort[entry[0]]}:</span>
             <span>{entry[1]}</span>
           </li>
         ))}

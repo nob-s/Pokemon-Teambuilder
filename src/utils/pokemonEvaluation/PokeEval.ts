@@ -1,5 +1,5 @@
 import { Pokemon } from "../../types/Pokemon.ts";
-import { MeanStatsEval } from "./MeanStatsEval.ts";
+import { StatsEval } from "./StatsEval.ts";
 import { TypeEval } from "./TypeEval.ts";
 
 export class PokeEval {
@@ -11,9 +11,10 @@ export class PokeEval {
       return this.EMPTY_TEAM_MSG
     }
     const statNames = Object.keys(pokemonTeam[0].baseStats);
-    const evalMeanStats = MeanStatsEval.evalMeanStats(pokemonTeam, statNames);
+    const evalMeanStats = StatsEval.evalMeanStats(pokemonTeam, statNames);
+    const evalExtremeStats = StatsEval.evalExtremeStats(pokemonTeam)
     const evalTypes = TypeEval.evalTypes(pokemonTeam);
-    return `${evalMeanStats}\n${evalTypes}`;
+    return `${evalMeanStats}\n${evalTypes}\n${evalExtremeStats}\n`;
   }
 
   private static getTeamSize(pokemonTeam: Pokemon[]) {

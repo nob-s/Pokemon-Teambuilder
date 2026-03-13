@@ -13,7 +13,7 @@ export class TypeEval {
   static evalTypes(pokemonTeam: Pokemon[]): string {
     pokemonTeam = pokemonTeam.filter(pokemon => pokemon !== Pokemon.EMPTY_POKEMON);
     const defVariety = this.getDefensiveVariety(this.getDefensiveStrength(pokemonTeam))
-    return `${defVariety}\n`;
+    return `${defVariety}`;
   }
 
   private static getDefensiveVariety(teamEff: Record<string, number>[]) {
