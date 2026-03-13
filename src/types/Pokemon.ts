@@ -13,13 +13,13 @@ export class Pokemon {
     public static readonly EMPTY_POKEMON = Pokemon.emptyPokemonWithName(Pokemon.EMPTY_NAME);
     public static readonly SEARCH_PROMPT_POKEMON = Pokemon.emptyPokemonWithName(Pokemon.SEARCH_PROMPT_NAME);
 
-    private readonly POKEMON_MAX_IV = 31;
-    private readonly POKEMON_MIN_IV = 0;
-    private readonly POKEMON_MAX_TOTAL_EV = 255;
+    private static readonly POKEMON_MAX_IV = 31;
+    private static readonly POKEMON_MIN_IV = 0;
+    private static readonly POKEMON_MAX_TOTAL_EV = 255;
 
-    private readonly POKEMON_MAX_LEVEL = 100;
-    private readonly POKEMON_MIN_LEVEL = 1;
-    private readonly POKEMON_DEFAULT_NATURE_MULT = 1;
+    private static readonly POKEMON_MAX_LEVEL = 100;
+    private static readonly POKEMON_MIN_LEVEL = 1;
+    private static readonly POKEMON_DEFAULT_NATURE_MULT = 1;
 
     name: string;
     id: number;
@@ -49,11 +49,11 @@ export class Pokemon {
         this.evs = this.getInitZeroEvs(baseStats);
         this.level = this.getInitMaxLevel();
         this.stats = this.getInitStats(
-          baseStats, this.ivs, this.evs, this.level, this.POKEMON_DEFAULT_NATURE_MULT);
+          baseStats, this.ivs, this.evs, this.level, Pokemon.POKEMON_DEFAULT_NATURE_MULT);
     }
 
     public setIv(statName: string, iv: number): void {
-        if(iv > this.POKEMON_MAX_IV || iv < this.POKEMON_MIN_IV) {
+        if(iv > Pokemon.POKEMON_MAX_IV || iv < Pokemon.POKEMON_MIN_IV) {
             return;
         }
         this.ivs[statName] = iv;
@@ -62,13 +62,13 @@ export class Pokemon {
     private getInitMaxIvs(baseStats: Record<string, number>): Record<string, number> {
         const maxIvs: Record<string, number> = {};
         for (const statName in baseStats) {
-            maxIvs[statName] = this.POKEMON_MAX_IV;
+            maxIvs[statName] = Pokemon.POKEMON_MAX_IV;
         }
         return maxIvs;
     }
 
     public setEv(statName: string, ev: number): void {
-        if(this.calculateTotalEvs() - this.evs[statName] + ev >= this.POKEMON_MAX_TOTAL_EV) {
+        if(this.calculateTotalEvs() - this.evs[statName] + ev >= Pokemon.POKEMON_MAX_TOTAL_EV) {
             return;
         }
         this.evs[statName] = ev;
@@ -91,14 +91,14 @@ export class Pokemon {
     }
 
     public setLevel(level: number): void {
-        if(level > this.POKEMON_MAX_LEVEL && level < this.POKEMON_MIN_LEVEL) {
+        if(level > Pokemon.POKEMON_MAX_LEVEL && level < Pokemon.POKEMON_MIN_LEVEL) {
             return;
         }
         this.level = level;
     }
 
     private getInitMaxLevel(): number {
-        return this.POKEMON_MAX_LEVEL;
+        return Pokemon.POKEMON_MAX_LEVEL;
     }
 
     private getInitStats(baseStats: Record<string, number>, ivs: Record<string, number>,

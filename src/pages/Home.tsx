@@ -13,15 +13,9 @@ export function Home() {
     x: number,
     y: number, } | null>(null);
   const [displayPokemon, setDisplayPokemon] = useState(Pokemon.SEARCH_PROMPT_POKEMON);
-  const [pokemonTeam, setPokemonTeam] = useState<Pokemon[]>([
-    Pokemon.EMPTY_POKEMON,
-    Pokemon.EMPTY_POKEMON,
-    Pokemon.EMPTY_POKEMON,
-    Pokemon.EMPTY_POKEMON,
-    Pokemon.EMPTY_POKEMON,
-    Pokemon.EMPTY_POKEMON,
-  ]);
 
+  const [pokemonTeam, setPokemonTeam] = useState<Pokemon[]>(
+    Array(6).fill(Pokemon.EMPTY_POKEMON));
   const handleSearch = async (searchString: string) => {
     const pokemon = await PokemonParser.fetchAndCreatePokemon(searchString);
     setDisplayPokemon(pokemon);
@@ -47,8 +41,10 @@ export function Home() {
         return;
       }
     }
-    setPokemonTeam(pokemonTeam.map(
-      (p, i) => i === idx ? displayPokemon : p))
+
+    const newTeam = pokemonTeam.map(
+      (p, i) => i === idx ? displayPokemon : p)
+    setPokemonTeam(newTeam)
   }
 
   const deleteTeamPokemonAt = (idx: number) => {
@@ -64,11 +60,11 @@ export function Home() {
       <div className="flex h-screen p-4 gap-4 font-pokemon text-2xl">
         {/* Search bar */}
         <div className="flex flex-col w-1/2 h-full space-y-12">
-          <div className="flex-3 flex-col">
+          <div className="flex-3 flex-col min-h-0">
             <SearchBar onSearch={handleSearch}/>
             <PokemonDisplay pokemon={displayPokemon}/>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-h-0">
             <TeamSummaryBox pokemonTeam={ pokemonTeam }/>
           </div>
         </div>

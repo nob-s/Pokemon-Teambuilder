@@ -44,9 +44,23 @@ type AbilityDescApiResponse = {
     }[];
 }
 
+type PokemonCookieParsed = {
+    name: string,
+    id: number,
+    types: string[],
+    baseStats: Record<string, number>,
+    abilities: Ability[],
+    spriteUrl: string
+}
+
 export class PokemonParser {
     private static readonly USER_LANGUAGE = "en";
     private static readonly POKEMON_ENDPOINT = "https://pokeapi.co/api/v2/pokemon/";
+
+    static parsePokemonCookie(p: PokemonCookieParsed) {
+        return new Pokemon(p.name, p.id, p.types, p.baseStats, p.abilities, p.spriteUrl)
+    }
+
 
     static async fetchAndCreatePokemon(urlName: string): Promise<Pokemon> {
         const pokeUrl = this.POKEMON_ENDPOINT + urlName.toLowerCase();
