@@ -3,6 +3,11 @@ Link: https://nob-s.github.io/Pokemon-Teambuilder/
 
 Pokemon Teambuilder helps evaluate your pokemon team and gives suggestions to improve it!
 
+The window in the bottom left shows your team summary:
+- Your team's high and low average stats
+- Your team's weakness to a single type
+- Your pokemon with extremely high or extremely low stats
+
 ## Overview
 
 ### Approach and architecture
